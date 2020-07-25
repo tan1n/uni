@@ -8,6 +8,10 @@ class Sale extends Model
 {
     protected $guarded=[];
 
+    protected $casts = [
+        'created_at'  => 'date:Y-m-d',
+    ];
+
     public function product()
     {
         return $this->belongsTo(Product::class,'product_id');
