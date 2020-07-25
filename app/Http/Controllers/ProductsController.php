@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Product;
+
 class ProductsController extends Controller
 {
     /**
@@ -13,7 +15,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return response()->json(['data'=>Product::with(['brand','category'])->all()]);
+        return response()->json(['data'=>Product::with(['brand','category'])->get()]);
     }
 
     /**
@@ -35,7 +37,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        return response()->json(['data'=>Product::find($id)]);
+        return response()->json(['data'=>Product::with(['category','brand'])->find($id)]);
     }
 
     /**

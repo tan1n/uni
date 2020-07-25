@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Purchase;
+
 class PurchasesController extends Controller
 {
     /**
@@ -13,7 +15,7 @@ class PurchasesController extends Controller
      */
     public function index()
     {
-        return response()->json(['data'=>Purchase::with(['supplier','product'])->all()]);
+        return response()->json(['data'=>Purchase::with(['supplier','product'])->get()]);
     }
 
 

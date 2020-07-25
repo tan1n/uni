@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Brands;
+use App\Brand;
 
 class BrandsController extends Controller
 {
@@ -15,7 +15,7 @@ class BrandsController extends Controller
      */
     public function index()
     {
-        return reposnse()->json(['data'=>Brands::all()]);
+        return response()->json(['data'=>Brand::all()]);
     }
 
 
