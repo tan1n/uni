@@ -20,8 +20,7 @@ class SalesController extends Controller
     public function store(Request $request)
     {
         $i=0;
-        // $d=$request->products;
-        // dd($d);
+        // dd($request->all());
         foreach($request->products as $product_id){
             Sale::create([
                 'employee_id'=>$request->employee_id,
