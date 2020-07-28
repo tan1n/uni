@@ -30,7 +30,7 @@ Route::prefix('v1')->group(function(){
         Route::prefix('sales')->group(function(){
             Route::get('{start}/{end}','ReportsController@salesByDate');
             Route::get('employee/{employee}/{start}/{end}','ReportsController@salesByEmployee');
-            Route::get('product/{start}/{end}','ReportsController@salesByProduct');
+            Route::get('product/{product}/{start}/{end}','ReportsController@salesByProduct');
         });
     });
 });
