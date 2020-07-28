@@ -37,9 +37,23 @@ class ReportsController extends Controller
         return response()->json(['data'=>$data]);
     }
 
+    public function expenseByEmployee($start,$end)
+    {
+        $start=$start." 00:00:00";
+        $end=$end." 23:59:59";
+        $data=Expense::with(['employee'])
+                ->whereBetween('created_at',[$start,$end])
+                ->where('employee_id',$product)->get();
+        return response()->json(['data'=>$data]);
+    }
+
     public function expenseByDate($start,$end)
     {
-
+        $start=$start." 00:00:00";
+        $end=$end." 23:59:59";
+        $data=Expense::with(['employee'])
+                ->whereBetween('created_at',[$start,$end])->get();
+        return response()->json(['data'=>$data]);
     }
 
 }
