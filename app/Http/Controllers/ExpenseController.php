@@ -10,7 +10,7 @@ class ExpenseController extends Controller
 {
     public function index()
     {
-        return response()->json(['data'=>Expense::all()]);
+        return response()->json(['data'=>Expense::with('employee')->get()]);
     }
 
     /**
@@ -32,7 +32,7 @@ class ExpenseController extends Controller
      */
     public function show($id)
     {
-        return response()->json(['data'=>Expense::find($id)]);
+        return response()->json(['data'=>Expense::find($id)->with('employee')->get()]);
     }
 
 
