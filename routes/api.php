@@ -25,6 +25,7 @@ Route::prefix('v1')->group(function(){
     Route::resource('supplier','SuppliersController',['except'=>['create','edit']]);
     Route::resource('purchase','PurchasesController',['except'=>['create','edit']]);
     Route::resource('employee','EmployeesController',['except'=>['create','edit']]);
+    Route::resource('expense','ExpenseController',['except'=>['create','edit']]);
     Route::resource('sales','SalesController',['only'=>['store']]);
     Route::prefix('report')->group(function(){
         Route::prefix('sales')->group(function(){
