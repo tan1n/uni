@@ -33,5 +33,9 @@ Route::prefix('v1')->group(function(){
             Route::get('employee/{employee}/{start}/{end}','ReportsController@salesByEmployee');
             Route::get('product/{product}/{start}/{end}','ReportsController@salesByProduct');
         });
+        Route::prefix('expense')->group(function(){
+            Route::get('{start}/{end}','ReportsController@expenseByDate');
+            Route::get('employee/{employee}/{start}/{end}','ReportsController@expenseByEmployee');
+        });
     });
 });

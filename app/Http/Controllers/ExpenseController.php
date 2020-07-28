@@ -13,7 +13,6 @@ class ExpenseController extends Controller
         return response()->json(['data'=>Expense::all()]);
     }
 
-
     /**
      * Store a newly created resource in storage.
      *

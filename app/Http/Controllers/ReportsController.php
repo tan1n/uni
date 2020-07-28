@@ -8,6 +8,7 @@ use App\Sale;
 
 class ReportsController extends Controller
 {
+
     public function salesByDate($start,$end)
     {
         $start=$start." 00:00:00";
@@ -34,6 +35,11 @@ class ReportsController extends Controller
                 ->whereBetween('created_at',[$start,$end])
                 ->where('product_id',$product)->get();
         return response()->json(['data'=>$data]);
+    }
+
+    public function expenseByDate($start,$end)
+    {
+
     }
 
 }
