@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Sale;
 
+use App\Expense;
+
 class ReportsController extends Controller
 {
 
@@ -37,13 +39,13 @@ class ReportsController extends Controller
         return response()->json(['data'=>$data]);
     }
 
-    public function expenseByEmployee($start,$end)
+    public function expenseByEmployee($employee,$start,$end)
     {
         $start=$start." 00:00:00";
         $end=$end." 23:59:59";
         $data=Expense::with(['employee'])
                 ->whereBetween('created_at',[$start,$end])
-                ->where('employee_id',$product)->get();
+                ->where('employee_id',$employee)->get();
         return response()->json(['data'=>$data]);
     }
 
