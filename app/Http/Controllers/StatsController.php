@@ -57,17 +57,24 @@ class StatsController extends Controller
                             ->with('employee')
                             ->get();
         
-        $weekly_expense=Expense::whereBetween('created_at',[$start,$end])
+        $weekly_expense=Expense::select(DB::raw('sum(amount) as total,CAST(created_at AS DATE) as date'))
+                        ->whereBetween('created_at',[$start,$end])
                         ->where('employee_id',$employee_id)
+                        ->groupBy(DB::raw('CAST(created_at AS DATE)'))
                         ->get();
 
-        $daily_expense=Expense::whereBetween('created_at',[$this->time->copy()->startOfDay(),$this->time->copy()->endOfDay()])
+        $daily_expense=Expense::select(DB::raw('sum(amount) as total,CAST(created_at AS DATE) as date'))
+                    ->whereBetween('created_at',[$this->time->copy()->startOfDay(),$this->time->copy()->endOfDay()])
                     ->where('employee_id',$employee_id)
-                    ->sum('amount');
+                    ->get();
+        
+        // dd($daily_expense);
 
-        $monthly_expense=Expense::whereBetween('created_at',[$this->time->copy()->startOfMonth(),$this->time->copy()->endOfMonth()])
+        $monthly_expense=Expense::select(DB::raw('sum(amount) as total,CAST(created_at AS DATE) as date'))
+                        ->whereBetween('created_at',[$this->time->copy()->startOfMonth(),$this->time->copy()->endOfMonth()])
                         ->where('employee_id',$employee_id)
-                        ->sum('amount');
+                        ->groupBy(DB::raw('CAST(created_at AS DATE)'))
+                        ->get();
 
         $total_products=Product::all()->count();
 
@@ -97,7 +104,10 @@ class StatsController extends Controller
             'total_brands'=>$total_brands,
             'monthly_sale_total'=>$monthly_sale->sum('total'),
             'weekly_sale_total'=>$weekly_sale->sum('total'),
-            'daily_sale_total'=>$daily_sale->sum('total_amount')
+            'daily_sale_total'=>$daily_sale->sum('total_amount'),
+            'daily_expense_total'=>$daily_expense->sum('total'),
+            'weekly_expense_total'=>$weekly_expense->sum('total'),
+            'monthly_expense_total'=>$monthly_expense->sum('total')
         ]]);
     }
 
