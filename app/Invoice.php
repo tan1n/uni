@@ -15,4 +15,9 @@ class Invoice extends Model
     {
         return $this->hasMany(Sale::class,'invoice_id');
     }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class,'employee_id');
+    }
 }

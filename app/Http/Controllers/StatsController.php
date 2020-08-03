@@ -54,7 +54,8 @@ class StatsController extends Controller
 
         $daily_sale=Invoice::whereBetween('created_at',[$this->time->copy()->startOfDay(),$this->time->copy()->endOfDay()])
                             ->where('employee_id',$employee_id)
-                            ->sum('total_amount');
+                            ->with('employee')
+                            ->get();
         
         $weekly_expense=Expense::whereBetween('created_at',[$start,$end])
                         ->where('employee_id',$employee_id)
@@ -93,7 +94,10 @@ class StatsController extends Controller
             'monthly_expense'=>$monthly_expense,
             'monthly_purchase'=>$monthly_purchase,
             'total_products'=>$total_products,
-            'total_brands'=>$total_brands
+            'total_brands'=>$total_brands,
+            'monthly_sale_total'=>$monthly_sale->sum('total'),
+            'weekly_sale_total'=>$weekly_sale->sum('total'),
+            'daily_sale_total'=>$daily_sale->sum('total_amount')
         ]]);
     }
 
