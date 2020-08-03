@@ -17,6 +17,7 @@ class CreateInvoiceTable extends Migration
             $table->id();
             $table->integer('employee_id');
             $table->integer('discount');
+            $table->string('payment_method');
             $table->integer('total_amount');
             $table->timestamps();
         });
