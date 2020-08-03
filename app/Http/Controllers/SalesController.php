@@ -27,7 +27,8 @@ class SalesController extends Controller
                 'product_id'=>$product_id,
                 'discount'=>$request->discount,
                 'payment_method'=>$request->payment_method,
-                'quantity'=>$request->quantity[$i]
+                'quantity'=>$request->quantity[$i],
+                'total_amount'=>$request->total_amount
             ]);
             $product=Product::find($product_id);
             $product->quantity=$product->quantity - $request->quantity[$i];
