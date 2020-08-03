@@ -8,9 +8,7 @@ class Sale extends Model
 {
     protected $guarded=[];
 
-    protected $casts = [
-        'created_at'  => 'date:Y-m-d',
-    ];
+    protected $casts = ['created_at' => 'date'];
 
     public function product()
     {

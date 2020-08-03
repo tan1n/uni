@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Carbon\Carbon;
 
+use DB;
+
 use App\Sale;
 
 use App\Invoice;
@@ -37,13 +39,18 @@ class StatsController extends Controller
         
         $employee_id=User::find($user_id)->employee_id;
 
-        $monthly_sale=Invoice::whereBetween('created_at',[$this->time->copy()->startOfMonth(),$this->time->copy()->endOfMonth()])
+        $monthly_sale=Invoice::select(DB::raw('sum(total_amount) as total,CAST(created_at AS DATE) as date'))
+                    ->whereBetween('created_at',[$this->time->copy()->startOfMonth(),$this->time->copy()->endOfMonth()])
                     ->where('employee_id',$employee_id)
-                    ->sum('total_amount');
+                    ->groupBy(DB::raw('CAST(created_at AS DATE)'))
+                    ->get();
 
-        $weekly_sale=Invoice::whereBetween('created_at',[$start,$end])
-                            ->where('employee_id',$employee_id)
-                            ->get();
+
+        $weekly_sale=Invoice::select(DB::raw('sum(total_amount) as total,CAST(created_at AS DATE) as date'))
+                    ->whereBetween('created_at',[$start,$end])
+                    ->where('employee_id',$employee_id)
+                    ->groupBy(DB::raw('CAST(created_at AS DATE)'))
+                    ->get();
 
         $daily_sale=Invoice::whereBetween('created_at',[$this->time->copy()->startOfDay(),$this->time->copy()->endOfDay()])
                             ->where('employee_id',$employee_id)
