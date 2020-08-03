@@ -14,6 +14,10 @@ use App\User;
 
 use App\Expense;
 
+use App\Brand;
+
+use App\Product;
+
 class StatsController extends Controller
 {
 
@@ -54,8 +58,11 @@ class StatsController extends Controller
         $monthly_expense=Expense::whereBetween('created_at',[$this->time->copy()->startOfMonth(),$this->time->copy()->endOfMonth()])
         ->where('employee_id',$employee_id)
         ->sum('amount');
-        
-        
+
+        $total_products=Product::all()->count();
+
+        $total_brands=Brand::all()->count();
+
                     
         return response()->json(['data'=>[
             'daily_sale'=>$daily_sale,
@@ -63,7 +70,9 @@ class StatsController extends Controller
             'weekly_sale'=>$weekly_sale,
             'weekly_expense'=>$weekly_expense,
             'monthly_sale'=>$monthly_sale,
-            'monthly_expense'=>$monthly_expense
+            'monthly_expense'=>$monthly_expense,
+            'total_products'=>$total_products,
+            'total_brands'=>$total_brands,
         ]]);
     }
 
