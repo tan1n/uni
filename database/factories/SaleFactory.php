@@ -7,11 +7,10 @@ use Faker\Generator as Faker;
 
 $factory->define(Sale::class, function (Faker $faker) {
     return [
-        'employee_id'=>factory(Employee::class),
-        'product_id'=>factory(Product::class),
-        'discount'=>null,
+        'invoice_id'=>factory(App\Invoice::class),
+        'employee_id'=>factory(App\Employee::class),
+        'product_id'=>factory(App\Product::class),
         'quantity'=>null,
-        'payment_method'=>$faker->randomElement(array('Cash','Credit Card','Bkash')),
         'total_amount'=>null,
     ];
 });

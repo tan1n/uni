@@ -10,7 +10,7 @@ $factory->define(Employee::class, function (Faker $faker) {
         'name'=>$faker->name,
         'address'=>$faker->city,
         'designation'=>$faker->jobTitle,
-        'nid'=>$faker->nationalIdNumber,
+        'nid'=>$faker->isbn10,
         'joining_date'=>$faker->dateTime(),
         'phone'=>$faker->e164PhoneNumber
     ];
