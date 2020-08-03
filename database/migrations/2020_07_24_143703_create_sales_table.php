@@ -20,6 +20,7 @@ class CreateSalesTable extends Migration
             $table->integer('discount');
             $table->integer('quantity');
             $table->string('payment_method');
+            $table->integer('total_amount');
             $table->timestamps();
         });
     }
