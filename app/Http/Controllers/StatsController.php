@@ -68,8 +68,6 @@ class StatsController extends Controller
                     ->where('employee_id',$employee_id)
                     ->get();
         
-        // dd($daily_expense);
-
         $monthly_expense=Expense::select(DB::raw('sum(amount) as total,CAST(created_at AS DATE) as date'))
                         ->whereBetween('created_at',[$this->time->copy()->startOfMonth(),$this->time->copy()->endOfMonth()])
                         ->where('employee_id',$employee_id)

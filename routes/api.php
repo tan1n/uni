@@ -38,6 +38,7 @@ Route::prefix('v1')->group(function(){
             Route::get('employee/{employee}/{start}/{end}','ReportsController@expenseByEmployee');
         });
     });
-
     Route::get('stats/{user_id}','StatsController@show');
+    Route::post('/login','UserController@login');
+    Route::resource('user','UserController',['except'=>['create','edit']]);
 });
