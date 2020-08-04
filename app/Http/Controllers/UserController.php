@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Auth;
 
+use Hash;
+
 use App\User;
 
 class UserController extends Controller
@@ -28,7 +30,13 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        return response()->json(['data'=>User::create($request->all())]);
+        return response()->json(['data'=>User::create([
+            'name'=>$request->name,
+            'employee_id'=>$request->employee_id,
+            'password'=>Hash::make($request->password),
+            'email'=>$request->email,
+            'role_id'=>$request->role_id
+        ])]);
     }
 
     public function show(User $user)
